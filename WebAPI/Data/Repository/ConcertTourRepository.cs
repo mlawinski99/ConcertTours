@@ -17,9 +17,12 @@ namespace WebAPI.Data.Repository
             return await _dbContext.ConcertTours.ToListAsync();
         }
 
-        public async Task<ConcertTour> GetConcertTourById(int id)
+        public async Task<ConcertTour> GetConcertTourById(int bandId, int id)
         {
-            return await _dbContext.ConcertTours.Where(c => c.ConcertTourId == id).Include(c => c.Concerts).Include(c => c.Band).FirstOrDefaultAsync();
+            return await _dbContext.ConcertTours.
+                Where(c => c.ConcertTourId == id).
+                Where(c => bandId == bandId).
+                FirstOrDefaultAsync();
         }
 
         public async Task<ConcertTour> CreateConcertTour(ConcertTour concertTour)

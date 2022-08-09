@@ -13,10 +13,10 @@ namespace WebAPI.Data.Repository
         }
         public async Task<Band> GetBandById(int managerId, int id)
         {
-            return await _dbContext.Bands
-                .Where(m => m.BandId == id)
-                .Where(m => managerId == managerId)
-                    .FirstOrDefaultAsync();
+            return await _dbContext.Bands.
+                Where(m => m.BandId == id).
+                Where(m => managerId == managerId).
+                FirstOrDefaultAsync();
         }
 
         public async Task<Band> CreateBand(Band band)

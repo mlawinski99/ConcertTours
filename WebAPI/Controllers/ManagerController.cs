@@ -12,14 +12,15 @@ namespace WebAPI.Controllers
     {
         private readonly IManagerRepository _managerRepository;
         private readonly IMapper _mapper;
-        public ManagerController(IManagerRepository managerRepository, IMapper mapper)
+        public ManagerController(IManagerRepository managerRepository,
+            IMapper mapper)
         {
             _managerRepository = managerRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
-          public async Task<ActionResult<IEnumerable<Manager>>> GetManagers()
+          public async Task<ActionResult<IEnumerable<ManagerReadDTO>>> GetManagers()
           {
               var managerList = await _managerRepository.GetManagerList();
               
@@ -27,7 +28,7 @@ namespace WebAPI.Controllers
           }
 
           [HttpGet ("{id}")]
-          public async Task<ActionResult<Manager>> GetManagerById(int id)
+          public async Task<ActionResult<ManagerReadDTO>> GetManagerById(int id)
           {
               var manager = await _managerRepository.GetManagerById(id);
 

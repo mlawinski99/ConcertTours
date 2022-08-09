@@ -15,7 +15,9 @@ namespace WebAPI.Controllers
         private readonly IManagerRepository _managerRepository;
         private readonly IBandRepository _bandRepository;
         private readonly IMapper _mapper;
-        public ConcertTourController(IConcertTourRepository concertTourRepository, IMapper mapper, IManagerRepository managerRepository, IBandRepository bandRepository)
+        public ConcertTourController(IConcertTourRepository concertTourRepository,
+            IMapper mapper, IManagerRepository managerRepository,
+            IBandRepository bandRepository)
         {
             _concertTourRepository = concertTourRepository;
             _mapper = mapper;
@@ -24,13 +26,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet(Name="GetConcertTour")]
-        public async Task<ActionResult<Manager>> GetConcertTourById(int managerId,
+        public async Task<ActionResult<ConcertTourReadDTO>> GetConcertTourById(int managerId,
             int bandId, int concertTourId)
         {
-            if (!await _managerRepository.IsManagerExists(managerId) || !await _bandRepository.IsBandExists(bandId))
+            if (!await _managerRepository.IsManagerExists(managerId)
+                || !await _bandRepository.IsBandExists(bandId))
                 return NotFound();
 
-            var concertTour = await _concertTourRepository.GetConcertTourById(concertTourId);
+            var concertTour = await _concertTourRepository.GetConcertTourById(bandId, concertTourId);
 
             if (concertTour == null)
                 return NotFound();
@@ -39,10 +42,11 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ConcertTourCreateUpdateDTO>> CreateConcertTour(int managerId,
+        public async Task<ActionResult<ConcertTourReadDTO>> CreateConcertTour(int managerId,
             int bandId, ConcertTourCreateUpdateDTO concertTourDto)
         {
-            if (!await _managerRepository.IsManagerExists(managerId))
+            if (!await _managerRepository.IsManagerExists(managerId)
+                || !await _bandRepository.IsBandExists(bandId))
                 return NotFound();
 
             var concertTour = _mapper.Map<ConcertTour>(concertTourDto);
@@ -62,13 +66,14 @@ namespace WebAPI.Controllers
 
         [HttpPut("{concertTourId}")]
 
-        public async Task<ActionResult<ConcertTourCreateUpdateDTO>> UpdateConcertTour(int managerId,
+        public async Task<ActionResult> UpdateConcertTour(int managerId,
             int bandId,int concertTourId, ConcertTourCreateUpdateDTO concertTourDto)
         {
-            if (!await _managerRepository.IsManagerExists(managerId) || !await _bandRepository.IsBandExists(bandId))
+            if (!await _managerRepository.IsManagerExists(managerId) 
+                || !await _bandRepository.IsBandExists(bandId))
                 return NotFound();
 
-            var concertTour = await _concertTourRepository.GetConcertTourById(concertTourId);
+            var concertTour = await _concertTourRepository.GetConcertTourById(bandId, concertTourId);
             if (concertTour == null)
                 return NotFound();
 
@@ -79,13 +84,14 @@ namespace WebAPI.Controllers
 
         [HttpDelete("{concertTourId}")]
 
-        public async Task<ActionResult<ConcertCreateUpdateDTO>> DeleteConcertTour(int managerId,
+        public async Task<ActionResult> DeleteConcertTour(int managerId,
             int bandId, int concertTourId)
         {
-            if (!await _managerRepository.IsManagerExists(managerId) || !await _bandRepository.IsBandExists(bandId))
+            if (!await _managerRepository.IsManagerExists(managerId) 
+                || !await _bandRepository.IsBandExists(bandId))
                 return NotFound();
 
-            var concertTour = await _concertTourRepository.GetConcertTourById(concertTourId);
+            var concertTour = await _concertTourRepository.GetConcertTourById(bandId, concertTourId);
             if (concertTour == null)
                 return NotFound();
 

@@ -16,7 +16,8 @@ namespace WebAPI.Controllers
         private readonly IBandRepository _bandRepository;
         private readonly IMapper _mapper;
 
-        public BandController(IManagerRepository managerRepository, IBandRepository bandRepository, IMapper mapper)
+        public BandController(IManagerRepository managerRepository,
+            IBandRepository bandRepository, IMapper mapper)
         {
             _managerRepository = managerRepository;
             _bandRepository = bandRepository;
@@ -24,7 +25,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet(Name = "GetBand")]
-        public async Task<ActionResult<Band>> GetBandById(int managerId, int bandId)
+        public async Task<ActionResult<BandReadDTO>> GetBandById(int managerId,
+            int bandId)
         {
             var band = await _bandRepository.GetBandById(managerId, bandId);
 
@@ -35,7 +37,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BandCreateUpdateDTO>> CreateBand(int managerId,
+        public async Task<ActionResult<BandReadDTO>> CreateBand(int managerId,
             BandCreateUpdateDTO bandDto)
         {
             if (!await _managerRepository.IsManagerExists(managerId))
@@ -57,7 +59,7 @@ namespace WebAPI.Controllers
 
         [HttpPut("{bandId}")]
 
-        public async Task<ActionResult<BandCreateUpdateDTO>> UpdateBand(int managerId,
+        public async Task<ActionResult> UpdateBand(int managerId,
             int bandId, BandCreateUpdateDTO bandDto)
         {
             if (!await _managerRepository.IsManagerExists(managerId))
@@ -74,7 +76,7 @@ namespace WebAPI.Controllers
 
         [HttpDelete("{bandId}")]
 
-        public async Task<ActionResult<BandCreateUpdateDTO>> DeleteBand(int managerId,
+        public async Task<ActionResult> DeleteBand(int managerId,
             int bandId)
         {
             if (!await _managerRepository.IsManagerExists(managerId))

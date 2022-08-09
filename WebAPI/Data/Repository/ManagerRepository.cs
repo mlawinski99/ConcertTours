@@ -19,12 +19,6 @@ namespace WebAPI.Data.Repository
         {
             return await _dbContext.Managers.Where(m => m.ManagerId == id).Include(m => m.Bands).FirstOrDefaultAsync();
         }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            return (await _dbContext.SaveChangesAsync() >= 0);
-        }
-
         public async Task<bool> IsManagerExists(int id)
         {
             return await _dbContext.Managers.Where(m => m.ManagerId == id).AnyAsync();

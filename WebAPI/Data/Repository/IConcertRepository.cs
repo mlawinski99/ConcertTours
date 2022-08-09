@@ -4,10 +4,9 @@ namespace WebAPI.Data.Repository
 {
     public interface IConcertRepository
     {
-        Task<Concert> GetConcertById(int id);
+        Task<Concert> GetConcertById(int concertToudId, int id);
         Task<Concert> CreateConcert(Concert concert);
-        void DeleteConcertTour(Concert concert);
+        void DeleteConcert(Concert concert);
         Task<bool> SaveChangesAsync();
-        Task<bool> IsConcertExists(int concertId);
     }
 }
