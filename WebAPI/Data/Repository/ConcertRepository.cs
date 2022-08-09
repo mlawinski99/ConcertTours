@@ -13,10 +13,10 @@ namespace WebAPI.Data.Repository
         }
         public async Task<Concert> GetConcertById(int concertTourId, int id)
         {
-            return await _dbContext.Concerts.
-                Where(m => m.ConcertId == id).
-                Where(m => m.ConcertTourId == concertTourId).
-                FirstOrDefaultAsync();
+            return await _dbContext.Concerts
+                .Where(m => m.ConcertId == id)
+                .Where(m => m.ConcertTourId == concertTourId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Concert> CreateConcert(Concert concert)

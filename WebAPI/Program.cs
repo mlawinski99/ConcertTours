@@ -21,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IBandRepository, BandRepository>();
 builder.Services.AddScoped<IConcertTourRepository, ConcertTourRepository>();
+builder.Services.AddScoped<IConcertRepository, ConcertRepository>();
 
 
 

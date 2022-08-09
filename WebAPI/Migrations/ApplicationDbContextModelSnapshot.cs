@@ -82,6 +82,9 @@ namespace WebAPI.Migrations
                     b.Property<int>("ConcertTourId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DurationInMinutes")
+                        .HasColumnType("int");
+
                     b.HasKey("ConcertId");
 
                     b.HasIndex("ConcertTourId");

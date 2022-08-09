@@ -8,7 +8,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Manager/{managerId}/Band/{bandId}/ConcertTour/{concertTourId}/[controller]")]
     [ApiController]
     public class ConcertController : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
             if (concert == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<ConcertTourReadDTO>(concert));
+            return Ok(_mapper.Map<ConcertReadDTO>(concert));
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace WebAPI.Controllers
         [HttpPut("{concertId}")]
 
         public async Task<ActionResult> UpdateConcertTour(int managerId,
-            int bandId, int concertTourId, int concertId, ConcertTourCreateUpdateDTO concertTourDto)
+            int bandId, int concertTourId, int concertId, ConcertCreateUpdateDTO concertTourDto)
         {
             if (!await _managerRepository.IsManagerExists(managerId)
                 || !await _bandRepository.IsBandExists(bandId)

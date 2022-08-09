@@ -6,6 +6,6 @@ namespace WebAPI.DTOs
     {
         public int BandId { get; set; }
         public string Name { get; set; }
-       // public ICollection<ConcertTourReadDTO> ConcertTours { get; set; }
+        public ICollection<ConcertTourReadDTO> ConcertTours { get; set; }
     }
 }

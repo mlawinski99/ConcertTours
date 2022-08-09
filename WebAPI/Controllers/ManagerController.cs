@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
               return Ok(_mapper.Map<IEnumerable<ManagerReadDTO>>(managerList));
           }
 
-          [HttpGet ("{id}")]
+          [HttpGet("{id}")]
           public async Task<ActionResult<ManagerReadDTO>> GetManagerById(int id)
           {
               var manager = await _managerRepository.GetManagerById(id);
@@ -36,6 +36,18 @@ namespace WebAPI.Controllers
                   return NotFound();
 
               return Ok(_mapper.Map<ManagerReadDTO>(manager));
+          }
+
+          [HttpGet]
+          [Route("/data")]  
+          public async Task<ActionResult<IEnumerable<ManagerReadDTO>>> GetManagersConcertsByDate(int id, DateTime? beginningDateTime, DateTime? endingDateTime)
+          {
+              var manager = await _managerRepository.GetManagerConcerts(id, beginningDateTime, endingDateTime);
+
+              if (manager == null)
+                  return NotFound();
+
+              return Ok(_mapper.Map <IEnumerable<ManagerReadDTO>>(manager));
           }
     }
 }

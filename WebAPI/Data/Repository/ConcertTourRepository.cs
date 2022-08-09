@@ -12,17 +12,13 @@ namespace WebAPI.Data.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<ConcertTour>> GetConcertTours()
-        {
-            return await _dbContext.ConcertTours.ToListAsync();
-        }
-
         public async Task<ConcertTour> GetConcertTourById(int bandId, int id)
         {
-            return await _dbContext.ConcertTours.
-                Where(c => c.ConcertTourId == id).
-                Where(c => bandId == bandId).
-                FirstOrDefaultAsync();
+            return await _dbContext.ConcertTours
+                    .Where(c => c.ConcertTourId == id)
+                    .Where(c => bandId == bandId)
+                .Include(c => c.Concerts)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<ConcertTour> CreateConcertTour(ConcertTour concertTour)

@@ -11,11 +11,21 @@ namespace WebAPI.Data.Repository
         {
             _dbContext = dbContext;
         }
+
+        public async Task<IEnumerable<Band>> GetBands(int id)
+        {
+            return await _dbContext.Bands
+                .Where(b => b.BandId == id)
+                .Include(t => t.ConcertTours)
+                    .ThenInclude(c => c.Concerts)
+                .ToListAsync();
+        }
+
         public async Task<Band> GetBandById(int managerId, int id)
         {
-            return await _dbContext.Bands.
-                Where(m => m.BandId == id).
-                Where(m => managerId == managerId).
+            return await _dbContext.Bands
+                .Where(m => m.BandId == id)
+                .Where(m => managerId == managerId).
                 FirstOrDefaultAsync();
         }
 

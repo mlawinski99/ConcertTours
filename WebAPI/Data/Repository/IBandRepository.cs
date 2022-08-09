@@ -4,12 +4,11 @@ namespace WebAPI.Data.Repository
 {
     public interface IBandRepository
     {
-       // Task<Band> GetBandList();
+        Task<IEnumerable<Band>> GetBands(int id);
         Task<Band> GetBandById(int managerId, int id);
         Task<Band> CreateBand(Band band);
-       // Task<Band> UpdateBand();
-       void DeleteBand(Band band);
-       Task<bool> IsBandExists(int bandId);
-       Task<bool> SaveChangesAsync();
+        void DeleteBand(Band band); 
+        Task<bool> IsBandExists(int bandId); 
+        Task<bool> SaveChangesAsync();
     }
 }
