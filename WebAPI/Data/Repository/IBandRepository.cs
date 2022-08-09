@@ -9,6 +9,7 @@ namespace WebAPI.Data.Repository
         Task<Band> CreateBand(Band band);
        // Task<Band> UpdateBand();
        void DeleteBand(Band band);
+       Task<bool> IsBandExists(int bandId);
        Task<bool> SaveChangesAsync();
     }
 }

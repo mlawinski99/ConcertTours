@@ -9,6 +9,7 @@ namespace WebAPI.Data.Repository
         Task<ConcertTour> CreateConcertTour(ConcertTour concertTour);
         void DeleteConcertTour(ConcertTour concertTour);
         Task<bool> SaveChangesAsync();
+        Task<bool> IsConcertTourExists(int concertTourId);
     }
 }
 

@@ -37,5 +37,10 @@ namespace WebAPI.Data.Repository
         {
             return (await _dbContext.SaveChangesAsync() >= 0);
         }
+
+        public async Task<bool> IsConcertTourExists(int concertTourId)
+        {
+            return await _dbContext.ConcertTours.Where(c => c.ConcertTourId == concertTourId).AnyAsync();
+        }
     }
 }

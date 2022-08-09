@@ -30,6 +30,11 @@ namespace WebAPI.Data.Repository
             _dbContext.Bands.Remove(band);
         }
 
+        public async Task<bool> IsBandExists(int bandId)
+        {
+            return await _dbContext.Bands.Where(b => b.BandId == bandId).AnyAsync();
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await _dbContext.SaveChangesAsync() >= 0);

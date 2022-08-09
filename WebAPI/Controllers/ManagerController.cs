@@ -32,9 +32,7 @@ namespace WebAPI.Controllers
               var manager = await _managerRepository.GetManagerById(id);
 
               if (manager == null)
-              {
                   return NotFound();
-              }
 
               return Ok(_mapper.Map<ManagerReadDTO>(manager));
           }

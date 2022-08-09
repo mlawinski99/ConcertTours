@@ -8,7 +8,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/manager/{managerId}/[controller]")]
+    [Route("api/Manager/{managerId}/[controller]")]
     [ApiController]
     public class BandController : ControllerBase
     {
@@ -35,7 +35,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BandCreateUpdateDTO>> CreateBand(int managerId, BandCreateUpdateDTO bandDto)
+        public async Task<ActionResult<BandCreateUpdateDTO>> CreateBand(int managerId,
+            BandCreateUpdateDTO bandDto)
         {
             if (!await _managerRepository.IsManagerExists(managerId))
                 return NotFound();
@@ -56,8 +57,8 @@ namespace WebAPI.Controllers
 
         [HttpPut("{bandId}")]
 
-        public async Task<ActionResult<BandCreateUpdateDTO>> UpdateBand(int managerId, int bandId,
-            BandCreateUpdateDTO bandDto)
+        public async Task<ActionResult<BandCreateUpdateDTO>> UpdateBand(int managerId,
+            int bandId, BandCreateUpdateDTO bandDto)
         {
             if (!await _managerRepository.IsManagerExists(managerId))
                 return NotFound();
@@ -73,7 +74,8 @@ namespace WebAPI.Controllers
 
         [HttpDelete("{bandId}")]
 
-        public async Task<ActionResult<BandCreateUpdateDTO>> DeleteBand(int managerId, int bandId)
+        public async Task<ActionResult<BandCreateUpdateDTO>> DeleteBand(int managerId,
+            int bandId)
         {
             if (!await _managerRepository.IsManagerExists(managerId))
                 return NotFound();
