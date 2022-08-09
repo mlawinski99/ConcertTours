@@ -29,31 +29,63 @@ namespace WebAPI.Controllers
             var band = await _bandRepository.GetBandById(managerId, bandId);
 
             if (band == null)
-            {
                 return NotFound();
-            }
 
             return Ok(_mapper.Map<BandReadDTO>(band));
         }
+
         [HttpPost]
         public async Task<ActionResult<BandCreateUpdateDTO>> CreateBand(int managerId, BandCreateUpdateDTO bandDto)
         {
-            var manager = await _managerRepository.GetManagerById(managerId);
-            if (manager == null)
+            if (!await _managerRepository.IsManagerExists(managerId))
                 return NotFound();
 
             var band = _mapper.Map<Band>(bandDto);
-            band.Manager = manager;
+            band.ManagerId = managerId;
             await _bandRepository.CreateBand(band);
             await _bandRepository.SaveChangesAsync();
 
             var createdBand = _mapper.Map<BandReadDTO>(band);
             return CreatedAtRoute
             ("GetBand", new
-                {
-                    managerId = managerId,
-                    bandId = createdBand.BandId
-                }, createdBand);
+            {
+                managerId = managerId,
+                bandId = createdBand.BandId
+            }, createdBand);
+        }
+
+        [HttpPut("{bandId}")]
+
+        public async Task<ActionResult<BandCreateUpdateDTO>> UpdateBand(int managerId, int bandId,
+            BandCreateUpdateDTO bandDto)
+        {
+            if (!await _managerRepository.IsManagerExists(managerId))
+                return NotFound();
+
+            var band = await _bandRepository.GetBandById(managerId, bandId);
+            if (band == null)
+                return NotFound();
+
+            _mapper.Map(bandDto, band);
+            await _bandRepository.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{bandId}")]
+
+        public async Task<ActionResult<BandCreateUpdateDTO>> DeleteBand(int managerId, int bandId)
+        {
+            if (!await _managerRepository.IsManagerExists(managerId))
+                return NotFound();
+
+            var band = await _bandRepository.GetBandById(managerId, bandId);
+            if (band == null)
+                return NotFound();
+
+            _bandRepository.DeleteBand(band);
+            await _bandRepository.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

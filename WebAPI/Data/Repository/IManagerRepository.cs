@@ -7,5 +7,6 @@ namespace WebAPI.Data.Repository
         Task<IEnumerable<Manager>> GetManagerList();
         Task<Manager> GetManagerById(int id);
         Task<bool> SaveChangesAsync();
+        Task<bool> IsManagerExists(int id);
     }
 }

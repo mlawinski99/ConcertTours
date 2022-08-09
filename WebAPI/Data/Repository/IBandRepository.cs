@@ -8,7 +8,7 @@ namespace WebAPI.Data.Repository
         Task<Band> GetBandById(int managerId, int id);
         Task<Band> CreateBand(Band band);
        // Task<Band> UpdateBand();
-       // Task<Band> DeleteBand();
+       void DeleteBand(Band band);
        Task<bool> SaveChangesAsync();
     }
 }

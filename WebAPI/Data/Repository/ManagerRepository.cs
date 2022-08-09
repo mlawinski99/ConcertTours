@@ -24,5 +24,10 @@ namespace WebAPI.Data.Repository
         {
             return (await _dbContext.SaveChangesAsync() >= 0);
         }
+
+        public async Task<bool> IsManagerExists(int id)
+        {
+            return await _dbContext.Managers.Where(m => m.ManagerId == id).AnyAsync();
+        }
     }
 }

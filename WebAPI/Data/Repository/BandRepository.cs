@@ -25,6 +25,11 @@ namespace WebAPI.Data.Repository
             return band;
         }
 
+        public void DeleteBand(Band band)
+        {
+            _dbContext.Bands.Remove(band);
+        }
+
         public async Task<bool> SaveChangesAsync()
         {
             return (await _dbContext.SaveChangesAsync() >= 0);
