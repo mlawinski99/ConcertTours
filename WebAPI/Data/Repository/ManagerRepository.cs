@@ -38,8 +38,8 @@ namespace WebAPI.Data.Repository
                     .ThenInclude(t => t.ConcertTours
                         .Where(l => l.Concerts.Count > 0)) 
                     .ThenInclude(c => c.Concerts
-                        .Where(z => z.ConcertStartDateTime >= startTime)
-                        .Where(v => v.ConcertStartDateTime.AddMinutes(v.DurationInMinutes) <= endDateTime))
+                        .Where(z => z.ConcertStartDateTime.Date >= startTime.Value.Date)
+                        .Where(v => v.ConcertStartDateTime.AddMinutes(v.DurationInMinutes).Date <= endDateTime.Value.Date))
                     .ToListAsync();
 
             //concerts for specific date

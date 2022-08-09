@@ -8,6 +8,7 @@ namespace WebAPI.Data.Repository
         Task<IEnumerable<Manager>> GetManagerList();
         Task<Manager> GetManagerById(int id);
         Task<bool> IsManagerExists(int id);
-        Task<IEnumerable<Manager>> GetManagerConcerts(int id, DateTime? startTime, DateTime? endDateTime);
+        Task<IEnumerable<Manager>> GetManagerConcerts(int id,
+            DateTime? startTime, DateTime? endDateTime);
     }
 }

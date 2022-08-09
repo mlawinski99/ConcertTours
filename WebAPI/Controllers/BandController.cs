@@ -25,15 +25,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet(Name = "GetBand")]
-        public async Task<ActionResult<BandReadDTO>> GetBandById(int managerId,
-            int bandId)
+        public async Task<ActionResult<BandReadDTO>> GetBand(int managerId,
+            int bandId, DateTime? beginngDateTime, DateTime? endingDateTime)
         {
-            var band = await _bandRepository.GetBandById(managerId, bandId);
+            var band = await _bandRepository.GetBandsInDateRange(managerId, bandId, beginngDateTime, endingDateTime);
 
-            if (band == null)
+            if (band.Count() == 0)
                 return NotFound();
 
-            return Ok(_mapper.Map<BandReadDTO>(band));
+            return Ok(_mapper.Map<IEnumerable<BandReadDTO>>(band));
         }
 
         [HttpPost]
