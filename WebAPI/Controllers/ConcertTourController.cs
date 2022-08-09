@@ -23,15 +23,7 @@ namespace WebAPI.Controllers
             _bandRepository = bandRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ConcertTour>>> GetConcertTours()
-        {
-            var concertToursList = await _concertTourRepository.GetConcertTours();
-
-            return Ok(_mapper.Map<IEnumerable<ConcertTourReadDTO>>(concertToursList));
-        }
-
-        [HttpGet("{concertTourId}", Name="GetConcertTour")]
+        [HttpGet(Name="GetConcertTour")]
         public async Task<ActionResult<Manager>> GetConcertTourById(int managerId,
             int bandId, int concertTourId)
         {
@@ -70,8 +62,8 @@ namespace WebAPI.Controllers
 
         [HttpPut("{concertTourId}")]
 
-        public async Task<ActionResult<ConcertCreateUpdateDTO>> UpdateConcertTour(int managerId,
-            int bandId,int concertTourId, ConcertCreateUpdateDTO concertTourDto)
+        public async Task<ActionResult<ConcertTourCreateUpdateDTO>> UpdateConcertTour(int managerId,
+            int bandId,int concertTourId, ConcertTourCreateUpdateDTO concertTourDto)
         {
             if (!await _managerRepository.IsManagerExists(managerId) || !await _bandRepository.IsBandExists(bandId))
                 return NotFound();

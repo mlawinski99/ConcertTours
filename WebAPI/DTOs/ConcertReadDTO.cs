@@ -8,6 +8,6 @@ namespace WebAPI.DTOs
         public string City { get; set; }
         public DateTime ConcertStartDateTime { get; set; }
         private int DurationInMinutes { get; set; }
-        public ConcertTour ConcertTour { get; set; }
+       // public ConcertTourReadDTO ConcertTour { get; set; }
     }
 }
