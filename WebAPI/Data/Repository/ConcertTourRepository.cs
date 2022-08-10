@@ -12,6 +12,14 @@ namespace WebAPI.Data.Repository
             _dbContext = dbContext;
         }
 
+        public async Task<IEnumerable<ConcertTour>> GetConcertToursForBand(int bandId, int id)
+        {
+            return await _dbContext.ConcertTours
+                .Where(c => c.ConcertTourId == id)
+                .Where(c => bandId == bandId)
+                .Include(c => c.Concerts)
+                .ToListAsync();
+        }
         public async Task<ConcertTour> GetConcertTourById(int bandId, int id)
         {
             return await _dbContext.ConcertTours
