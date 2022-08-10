@@ -54,13 +54,13 @@ namespace WebAPI.Controllers
                 || !await _concertTourRepository.IsConcertTourExists(concertTourId))
                 return NotFound();
 
-            var bandConcertTours = await _concertTourRepository.GetConcertToursForBand(bandId, concertTourId);
+            var bandConcertTours = await _concertTourRepository.GetConcertToursForBand(bandId);
             foreach (var concertTour in bandConcertTours)
             {
                 //if new concert data is lower then concert date in any concert tour
                 foreach (var concertInTour in concertTour.Concerts) 
                     if (concertInTour.ConcertStartDateTime.Date >= concertDto.ConcertStartDateTime.Date) 
-                        return Forbid();
+                        return BadRequest();
             }
 
             var concert = _mapper.Map<Concert>(concertDto);
