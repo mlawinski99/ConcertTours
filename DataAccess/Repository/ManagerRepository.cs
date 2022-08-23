@@ -27,11 +27,10 @@ namespace DataAccess.Repository
             return await _dbContext.Managers.Where(m => m.ManagerId == id).AnyAsync();
         }
 
-        public async Task<IEnumerable<Manager>> GetManagerConcerts(int id,
-            DateTime? startTime, DateTime? endDateTime)
+        public IQueryable<Manager> GetManagerConcerts(int id)
         {
             //concerts between the range of dates
-            if (endDateTime != null && startTime != null)
+           /* if (endDateTime != null && startTime != null)
                 return await _dbContext.Managers
                     .Where(m => m.ManagerId == id)
                     .Include(b => b.Bands
@@ -54,16 +53,17 @@ namespace DataAccess.Repository
                     .ThenInclude(c => c.Concerts
                         .Where(v => v.ConcertStartDateTime.Date == startTime.Value.Date))
                     .ToListAsync();
-
+           */
             //all concerts
-            return await _dbContext.Managers
+            return _dbContext.Managers
                 .Where(m => m.ManagerId == id)
-                .Include(b => b.Bands
-                    .Where(p => p.ConcertTours.Count > 0))
-                .ThenInclude(t => t.ConcertTours
-                    .Where(l => l.Concerts.Count > 0))
-                .ThenInclude(c => c.Concerts)
-                .ToListAsync();
+                .AsNoTracking();
+            /*  .Include(b => b.Bands
+                  .Where(p => p.ConcertTours.Count > 0))
+              .ThenInclude(t => t.ConcertTours
+                  .Where(l => l.Concerts.Count > 0))
+              .ThenInclude(c => c.Concerts)
+              .ToListAsync();*/
         }
 
     }
