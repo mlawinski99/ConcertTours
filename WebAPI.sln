@@ -5,6 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{98820091-9131-43A2-89D6-B5BCE2102B6C}"
 	ProjectSection(ProjectDependencies) = postProject
+		{C6E195A6-2EF3-4E44-96E8-EE7297CBAA75} = {C6E195A6-2EF3-4E44-96E8-EE7297CBAA75}
 		{CF580850-071B-4D46-841F-277426BAE985} = {CF580850-071B-4D46-841F-277426BAE985}
 	EndProjectSection
 EndProject
@@ -14,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{CF580850-071B-4D46-841F-277426BAE985}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{C6E195A6-2EF3-4E44-96E8-EE7297CBAA75}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF580850-071B-4D46-841F-277426BAE985} = {CF580850-071B-4D46-841F-277426BAE985}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,10 @@ Global
 		{CF580850-071B-4D46-841F-277426BAE985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF580850-071B-4D46-841F-277426BAE985}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF580850-071B-4D46-841F-277426BAE985}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E195A6-2EF3-4E44-96E8-EE7297CBAA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E195A6-2EF3-4E44-96E8-EE7297CBAA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E195A6-2EF3-4E44-96E8-EE7297CBAA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E195A6-2EF3-4E44-96E8-EE7297CBAA75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
