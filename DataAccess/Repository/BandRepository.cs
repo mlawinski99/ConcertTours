@@ -21,25 +21,13 @@ namespace WebAPI.Data.Repository
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Band>> GetBandsInDateRange(int managerId,
-            int id, DateTime? beginngDateTime, DateTime? endingDateTime)
+        public IQueryable<Band> GetBands(int managerId,
+            int id)
         {
-            if(beginngDateTime != null && endingDateTime != null)
-            return await _dbContext.Bands
-                .Where(m => m.BandId == id)
-                .Where(m => managerId == managerId)
-                .Include(t => t.ConcertTours)
-                .ThenInclude(c => c.Concerts
-                    .Where(c => c.ConcertStartDateTime.Date >= beginngDateTime)
-                    .Where(c => c.ConcertStartDateTime.AddMinutes(c.DurationInMinutes).Date <= endingDateTime))
-                .ToListAsync();
-
-            return await _dbContext.Bands
-                .Where(m => m.BandId == id)
-                .Where(m => managerId == managerId)
-                .Include(t => t.ConcertTours)
-                .ThenInclude(c => c.Concerts)
-                .ToListAsync();
+            return  _dbContext.Bands
+              .Where(m => m.BandId == id)
+              .Where(m => managerId == managerId)
+              .AsNoTracking();
         }
 
         public async Task<Band> CreateBand(Band band)

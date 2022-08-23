@@ -2,6 +2,7 @@
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using WebAPI.Data;
 using WebAPI.DTOs;
@@ -28,12 +29,24 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<BandReadDTO>> GetBand(int managerId,
             int bandId, DateTime? beginngDateTime, DateTime? endingDateTime)
         {
-            var band = await _bandRepository.GetBandsInDateRange(managerId, bandId, beginngDateTime, endingDateTime);
+            var query =  _bandRepository.GetBands(managerId, bandId);
+            var bands = new List<Band>();
+            if (beginngDateTime != null && endingDateTime != null)
+            {
+               bands = await query.Include(t => t.ConcertTours)
+                    .ThenInclude(c => c.Concerts
+                        .Where(c => c.ConcertStartDateTime.Date >= beginngDateTime)
+                        .Where(c => c.ConcertStartDateTime.AddMinutes(c.DurationInMinutes).Date <= endingDateTime))
+                    .AsNoTracking()
+                    .ToListAsync();
+                return Ok(_mapper.Map<IEnumerable<BandReadDTO>>(bands));
+            }
 
-            if (band.Count() == 0)
-                return NotFound();
-
-            return Ok(_mapper.Map<IEnumerable<BandReadDTO>>(band));
+            bands = await query.Include(t => t.ConcertTours)
+                .ThenInclude(c => c.Concerts)
+                .AsNoTracking()
+                .ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<BandReadDTO>>(bands));
         }
 
         [HttpPost]
