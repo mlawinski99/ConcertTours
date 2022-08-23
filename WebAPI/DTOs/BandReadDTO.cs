@@ -1,5 +1,4 @@
-﻿using WebAPI.Models;
-
+﻿
 namespace WebAPI.DTOs
 {
     public class BandReadDTO

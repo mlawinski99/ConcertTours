@@ -1,7 +1,10 @@
 using System.Text.Json.Serialization;
+using DataAccess;
+using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Data.Repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

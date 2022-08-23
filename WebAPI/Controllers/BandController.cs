@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using DataAccess.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using WebAPI.Data;
-using WebAPI.Data.Repository;
 using WebAPI.DTOs;
-using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {

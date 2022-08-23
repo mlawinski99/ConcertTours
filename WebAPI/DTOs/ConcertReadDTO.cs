@@ -1,6 +1,4 @@
-﻿using WebAPI.Models;
-
-namespace WebAPI.DTOs
+﻿namespace WebAPI.DTOs
 {
     public class ConcertReadDTO
     {
